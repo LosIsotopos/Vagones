@@ -64,22 +64,24 @@ public class Tren {
 	public void resolver() {
 		ordenar();
 		int i = 0;
-		int j = 1;
-		int anterior = i;
+		int j = 1;	
 		if (agMax != 0) {
-			while (i < animales.length) {
+			while (i < animales.length && j < animales.length) {
 				if((animales[i].getAgresividad() - animales[animales.length-1].getAgresividad()) <= agMax ) {
 					vagones++;
 					agTot += animales[i].getAgresividad() - animales[animales.length-1].getAgresividad();
 					break;
-				} else if((i+j) < animales.length && (animales[i].getAgresividad() - animales[j].getAgresividad()) > agMax) {
+				} else if((animales[i].getAgresividad() - animales[j].getAgresividad()) > agMax) {
 						i++;
-						vagones++;
-						j++;
+//						vagones++;
+//						j++;
 					} else {
 						agTot += animales[i].getAgresividad() - animales[j].getAgresividad();
-						j++;
+//						vagones++;
+//						j++;
 					}
+				j++;
+				vagones++;
 			}
 		} else { 
 			vagones = animales.length;
