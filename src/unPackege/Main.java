@@ -5,12 +5,9 @@ import java.io.FileNotFoundException;
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		Tren t1 = new Tren("animales.in");
+		Tren t1 = new Tren("animales4.in");
 		t1.resolver();
-		Animal[] a = t1.getAnimales();
-		for (int i = 0; i < a.length; i++) {
-			System.out.println(a[i].toString());
-		}
+		System.out.println(t1.getVagones() + " " + t1.getAgTot());
 
 	}
 

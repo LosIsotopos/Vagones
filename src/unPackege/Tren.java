@@ -3,6 +3,7 @@ package unPackege;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Tren {
@@ -10,10 +11,11 @@ public class Tren {
 	private int vagones;
 	private int agMax;
 	private int agTot;
-	
+
+
 	public Tren(String path) throws FileNotFoundException {
 		Scanner sc = new Scanner(new File(path));
-		
+
 		this.animales = new Animal[sc.nextInt()];
 		this.agMax = sc.nextInt();
 		this.agTot = 0;
@@ -22,7 +24,7 @@ public class Tren {
 			this.animales[i] = new Animal(sc.next(),sc.nextInt(),sc.nextInt());
 		}
 		sc.close();
-		
+
 	}
 
 
@@ -58,21 +60,48 @@ public class Tren {
 	public void setAgrTot(int agTot) {
 		this.agTot = agTot;
 	}
-	
+
 	public void resolver() {
 		ordenar();
+		int i = 0;
+		int j = 1;
+		int anterior = i;
+		if (agMax != 0) {
+			while (i < animales.length) {
+				if((animales[i].getAgresividad() - animales[animales.length-1].getAgresividad()) <= agMax ) {
+					vagones++;
+					agTot += animales[i].getAgresividad() - animales[animales.length-1].getAgresividad();
+					break;
+				} else if((i+j) < animales.length && (animales[i].getAgresividad() - animales[j].getAgresividad()) > agMax) {
+						i++;
+						vagones++;
+						j++;
+					} else {
+						agTot += animales[i].getAgresividad() - animales[j].getAgresividad();
+						j++;
+					}
+			}
+		} else { 
+			vagones = animales.length;
+		}
 	}
-
 
 
 	private void ordenar() {
-		
-		for (int i = 0; i < animales.length; i++) {
-			for (int j = 0; j < animales.length; j++) {
-				
+		Arrays.sort(animales,new Comparator<Animal>() {
+
+			@Override
+			public int compare(Animal a1, Animal a2) {
+				if(a1.getAgresividad() < a2.getAgresividad()) {
+					return 1;
+				} else if(a1.getAgresividad() > a2.getAgresividad()) {
+					return -1;
+				}
+				return 0;
 			}
-		}
-		
+
+		});
+
 	}
-	
+
 }
