@@ -66,23 +66,21 @@ public class Tren {
 		int i = 0;
 		int j = 1;	
 		if (agMax != 0) {
-			while (i < animales.length && j < animales.length) {
-				if((animales[i].getAgresividad() - animales[animales.length-1].getAgresividad()) <= agMax ) {
-					vagones++;
-					agTot += animales[i].getAgresividad() - animales[animales.length-1].getAgresividad();
-					break;
-				} else if((animales[i].getAgresividad() - animales[j].getAgresividad()) > agMax) {
+			while (i < animales.length && j < animales.length && (animales[i].getAgresividad() - animales[animales.length-1].getAgresividad()) > agMax) {
+				if((animales[i].getAgresividad() - animales[j].getAgresividad()) > agMax) {
 						i++;
-//						vagones++;
-//						j++;
-					} else {
-						agTot += animales[i].getAgresividad() - animales[j].getAgresividad();
-//						vagones++;
-//						j++;
-					}
+
+				} else {
+					agTot += animales[i].getAgresividad() - animales[j].getAgresividad();
+				}
 				j++;
 				vagones++;
 			}
+			if(i< animales.length && j < animales.length) {
+				vagones++;
+				agTot += animales[i].getAgresividad() - animales[animales.length-1].getAgresividad();
+			}
+			
 		} else { 
 			vagones = animales.length;
 		}
